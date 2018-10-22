@@ -1,0 +1,21 @@
+<h1>Create new question</h1>
+
+<%= form_with scope: :questions, url: questions_path, local: true do |form| %>
+  <p>
+    <%= form.label :question %><br>
+    <%= form.text_field :question %>
+  </p>
+  <p>
+    <%= form.label :answer %><br>
+    <%= form.text_field :answer %>
+  </p>
+  
+  <p>
+    <%= form.label :parent_id %><br>
+    <%= form.text_field :parent_id %>
+  </p>
+ 
+  <p>
+    <%= form.submit %>
+  </p>
+<% end %>

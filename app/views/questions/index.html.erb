@@ -1,0 +1,9 @@
+<h1>Top-level questions</h1>
+
+<ul>
+	<% @top_level.each do |question| %>
+		<li><%= link_to question.question, question %></li>
+	<% end %>
+</ul>
+
+<%= link_to 'Create new question', new_question_path %>

@@ -1,0 +1,26 @@
+
+<p>
+  <strong>Question:</strong>
+  <%= @question.question %>
+</p>
+ 
+<p>
+  <strong>Answer:</strong>
+  <%= @question.answer %>
+</p>
+
+<p>
+  <strong>Parent:</strong>
+  <% if @question.parent.present? %>
+  	<%= link_to @question.parent&.question, @question.parent %>
+  <% end %>
+</p>
+
+<p>
+  <strong>Children:</strong>
+</p>
+<ul>
+	<% @question.children.each do |child| %>
+<li><%= link_to child.question, child %></li>
+<% end %>
+	</ul>
