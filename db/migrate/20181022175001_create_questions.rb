@@ -1,8 +1,8 @@
 class CreateQuestions < ActiveRecord::Migration[5.1]
   def change
     create_table :questions do |t|
-      t.text :question
-      t.text :answer
+      t.belongs_to :question, foreign_key: { to_table: :texts }
+      t.belongs_to :answer, foreign_key: { to_table: :texts }
       t.belongs_to :parent, foreign_key: { to_table: :questions }
 
       t.timestamps

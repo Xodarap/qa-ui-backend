@@ -10,15 +10,26 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20181022175001) do
+ActiveRecord::Schema.define(version: 20181022223645) do
 
   create_table "questions", force: :cascade do |t|
-    t.text "question"
-    t.text "answer"
+    t.integer "question_id"
+    t.integer "answer_id"
     t.integer "parent_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.index ["answer_id"], name: "index_questions_on_answer_id"
     t.index ["parent_id"], name: "index_questions_on_parent_id"
+    t.index ["question_id"], name: "index_questions_on_question_id"
+  end
+
+  create_table "texts", force: :cascade do |t|
+    t.string "type"
+    t.string "body"
+    t.integer "parent_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["parent_id"], name: "index_texts_on_parent_id"
   end
 
 end
