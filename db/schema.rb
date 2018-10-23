@@ -26,6 +26,7 @@ ActiveRecord::Schema.define(version: 20181022223645) do
   create_table "texts", force: :cascade do |t|
     t.string "type"
     t.string "body"
+    t.boolean "expanded", default: false
     t.integer "parent_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false

@@ -11,7 +11,6 @@ class Text < ApplicationRecord
     CompoundText.new(children: children)
   end
 
-
   private
   def self.materialize(parsed)
     parsed.flat_map do |element|
@@ -26,24 +25,49 @@ class Text < ApplicationRecord
 end
 
 class SimpleText < Text
-  def display
+  def display(expand = true)
     body
+  end
+
+  def assign_counters(start = 1)
+    start
   end
 end
 
 class PointerText < Text
-  def display
+  attr_accessor :counter
+
+  def display(expand = true)
+    return "##{counter}" unless expand || expanded?
+
     recursive = children.map do |child|
-      child.display
+      child.display(expand)
     end.join('') 
     "[#{recursive}]"
+  end
+
+  def assign_counters(start = 1)
+    if expanded?
+      children.reduce(start) do |count, child|
+        child.assign_counters(count)
+      end
+    else
+      @counter = start
+      start+1
+    end
   end
 end
 
 class CompoundText < Text
-  def display
+  def display(expand = true)
     recursive = children.map do |child|
-      child.display
+      child.display(expand)
     end.join('') 
+  end
+
+  def assign_counters(start = 1)
+    children.reduce(start) do |count, child|
+      child.assign_counters(count)
+    end
   end
 end

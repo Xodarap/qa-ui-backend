@@ -4,4 +4,3 @@ class TextParser < Parslet::Parser
   rule(:either) { (simple | pointer).repeat(1) }
   root :either
 end
-TextParser.new.parse('a [test]?')
