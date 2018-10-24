@@ -34,7 +34,9 @@ class QuestionControllerTest < ActionDispatch::IntegrationTest
     question = Question.new(question: Text.build_text('what is [1]'),
                             answer: Text.build_text('2'))
     question.save!
-    assert_difference(-> {Question.count}, -1) do
+    Question.new(question: Text.build_text('child'), parent: question).save!
+    
+    assert_difference(-> {Question.count}, -2) do
       delete "/questions/#{question.id}"
     end
   end

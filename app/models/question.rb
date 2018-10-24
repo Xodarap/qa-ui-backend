@@ -16,4 +16,9 @@ class Question < ApplicationRecord
       id: id
     }
   end
+
+  def destroy_cascade
+    children.each(&:destroy_cascade)
+    destroy
+  end
 end

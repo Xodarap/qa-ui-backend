@@ -53,11 +53,11 @@ class QuestionsController < ApplicationController
     render json: @question.as_json
   end
 
-  api :DELETE, '/questions/:id'
+  api :DELETE, '/questions/:id', 'Deletes question. Note that the delete cascades and also removes any child questions.'
   param :id, :number
   def destroy
     @question = Question.find(params[:id])
-    @question.destroy
+    @question.destroy_cascade
     head :ok
   end
 
