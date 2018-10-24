@@ -9,10 +9,19 @@ class QuestionsController < ApplicationController
   param 'answer', String, :desc => "Answer text, possibly including pointers in square brackets", :required => false
   param 'parent_id', :number, :desc => "Parent question ID", :required => false
   def create
-    question_text = Text.build_text(safe_parameters[:question])
-    answer_text = Text.build_text(safe_parameters[:answer]) if safe_parameters[:answer].present?
+    begin
+      question_text = Text.build_text(safe_parameters[:question])
+    rescue Parslet::ParseFailed => failure
+      return render json: {message: 'improperly formatted question', tree: failure.parse_failure_cause.ascii_tree}, status: 500
+    end
+    begin
+      answer_text = Text.build_text(safe_parameters[:answer]) if safe_parameters[:answer].present?
+    rescue Parslet::ParseFailed => failure
+      return render json: {message: 'improperly formatted answer', tree: failure.parse_failure_cause.ascii_tree}, status: 500
+    end
+
     @question = Question.new(parent_id: safe_parameters[:parent_id],
-      question: question_text, answer: answer_text)
+                              question: question_text, answer: answer_text)
     @question.save
     respond_to do |format|
       format.html { redirect_to @question }
