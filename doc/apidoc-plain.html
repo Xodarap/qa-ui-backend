@@ -1,0 +1,141 @@
+  <h4><a href='#questions'>Questions</a></h4>
+  <ul>
+      <li><a href='#questions-create'>create</a></li>
+      <li><a href='#questions-show'>show</a></li>
+      <li><a href='#questions-index'>index</a></li>
+  </ul>
+
+
+
+  <hr/>
+
+  <div>
+    <h2 id="questions">
+      <a href='#questions'>Questions</a><br>
+      <small></small>
+    </h2>
+  </div>
+
+
+  <div>
+
+      <hr/>
+
+      <h3 id="questions-create">
+      <a href='#questions'>Questions</a> / <a href='#questions-create'>create</a>
+      </h3>
+
+      <div>
+          <h4>
+              POST /api/questions
+            <br>
+            <small></small>
+          </h4>
+      </div>
+
+      <div>
+        
+
+
+          <h4>Params</h4>
+          <ul>
+    <li>
+      <strong>question </strong>:
+      <small>
+        required
+        
+          [ 
+<p>Must be a String</p>
+ ]
+      </small>
+      
+<p>Question text, possibly including pointers in square brackets</p>
+
+    </li>
+    
+    <li>
+      <strong>answer </strong>:
+      <small>
+        optional
+        
+          [ 
+<p>Must be a String</p>
+ ]
+      </small>
+      
+<p>Answer text, possibly including pointers in square brackets</p>
+
+    </li>
+    
+    <li>
+      <strong>parent_id </strong>:
+      <small>
+        optional
+        
+          [ 
+<p>Must be a number.</p>
+ ]
+      </small>
+      
+<p>Parent question ID</p>
+
+    </li>
+    
+</ul>
+
+      </div>
+      <hr/>
+
+      <h3 id="questions-show">
+      <a href='#questions'>Questions</a> / <a href='#questions-show'>show</a>
+      </h3>
+
+      <div>
+          <h4>
+              GET /api/questions/:id
+            <br>
+            <small></small>
+          </h4>
+      </div>
+
+      <div>
+        
+
+
+          <h4>Params</h4>
+          <ul>
+    <li>
+      <strong>id </strong>:
+      <small>
+        optional
+        
+          [ 
+<p>Must be a number.</p>
+ ]
+      </small>
+      
+    </li>
+    
+</ul>
+
+      </div>
+      <hr/>
+
+      <h3 id="questions-index">
+      <a href='#questions'>Questions</a> / <a href='#questions-index'>index</a>
+      </h3>
+
+      <div>
+          <h4>
+              GET /api/questions
+            <br>
+            <small></small>
+          </h4>
+      </div>
+
+      <div>
+        
+
+
+      </div>
+  </div>

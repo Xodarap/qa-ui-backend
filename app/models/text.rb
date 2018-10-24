@@ -1,6 +1,7 @@
 require 'text_parser'
 
 class Text < ApplicationRecord
+  attr_accessor :counter
   belongs_to :parent, class_name: 'Text', optional: true
   has_many :children, class_name: 'Text', foreign_key: 'parent_id'
 
@@ -9,6 +10,23 @@ class Text < ApplicationRecord
     children = self.materialize(parsed)
     return children[0] if children.count == 1
     CompoundText.new(children: children)
+  end
+
+  def as_json
+    {
+      display_expanded: display(true),
+      display_collapsed: display(false),
+      expanded: expanded,
+      body: body,
+      children: children.map(&:as_json),
+      id: id,
+      type: type
+    }
+  end
+
+  def find_pointer(number)
+    return self if counter == number
+    children.map{|child| child.find_pointer(number)}.compact.first
   end
 
   private
@@ -35,8 +53,6 @@ class SimpleText < Text
 end
 
 class PointerText < Text
-  attr_accessor :counter
-
   def display(expand = true)
     return "##{counter}" unless expand || expanded?
 

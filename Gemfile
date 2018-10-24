@@ -51,3 +51,5 @@ gem 'tzinfo-data', platforms: [:mingw, :mswin, :x64_mingw, :jruby]
 
 gem 'parslet'
 gem 'pry'
+gem 'coffee-script-source'
+gem 'apipie-rails'

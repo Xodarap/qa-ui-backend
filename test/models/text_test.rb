@@ -36,5 +36,16 @@ class TextTest < ActiveSupport::TestCase
 
     assert_equal 'a [b #1] d #2', text.display(false)
   end
+
+  test 'identifies pointers' do
+    text = Text.build_text('a [b [c]] d [e [f [g]]]')
+    text.children[1].expanded = true
+    text.assign_counters
+    child = text.find_pointer(1)
+    second = text.find_pointer(2)
+
+    assert_equal '[c]', child.display
+    assert_equal '[e [f [g]]]', second.display
+  end
 end
  

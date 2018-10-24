@@ -1,12 +1,15 @@
-
+<% 
+@question.question.assign_counters
+@question.answer&.assign_counters
+%>
 <p>
   <strong>Question:</strong>
-  <%= @question.question %>
+  <%= @question.question.display(false) %>
 </p>
  
 <p>
   <strong>Answer:</strong>
-  <%= @question.answer %>
+  <%= @question.answer&.display(false) %>
 </p>
 
 <p>
