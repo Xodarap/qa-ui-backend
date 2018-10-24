@@ -49,7 +49,7 @@ class QuestionsController < ApplicationController
     end
   end
 
-  api :PATCH, '/questions/:id', 'Update a question. If a parameter is left false or if its value is unchanged, no modifications will be made'
+  api :PATCH, '/questions/:id', 'Update a question. If a parameter is left nil or if its value is unchanged, no modifications will be made'
   param :id, :number
   param 'question', String, :desc => "Question text, possibly including pointers in square brackets", :required => false
   param 'answer', String, :desc => "Answer text, possibly including pointers in square brackets", :required => false
