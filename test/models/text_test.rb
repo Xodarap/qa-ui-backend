@@ -47,5 +47,11 @@ class TextTest < ActiveSupport::TestCase
     assert_equal '[c]', child.display
     assert_equal '[e [f [g]]]', second.display
   end
+
+  test 'destroy cascade' do
+    assert_difference(-> {Text.count}, 0) do
+      Text.build_text('a [b [c]] d [e [f [g]]]').destroy_cascade
+    end
+  end
 end
  

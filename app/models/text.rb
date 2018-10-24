@@ -29,6 +29,11 @@ class Text < ApplicationRecord
     children.map{|child| child.find_pointer(number)}.compact.first
   end
 
+  def destroy_cascade
+    children.each(&:destroy_cascade)
+    destroy
+  end
+
   private
   def self.materialize(parsed)
     parsed.flat_map do |element|
