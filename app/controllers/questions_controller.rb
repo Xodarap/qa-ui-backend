@@ -1,4 +1,9 @@
 class QuestionsController < ApplicationController
+  resource_description do
+    short 'Questions'
+    api_version "1.0"
+  end
+
   skip_before_action :verify_authenticity_token
 
   def new

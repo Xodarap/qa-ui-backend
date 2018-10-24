@@ -1,4 +1,9 @@
 class TextsController < ApplicationController
+  resource_description do
+    short 'Texts'
+    api_version "1.0"
+  end
+  
   skip_before_action :verify_authenticity_token
 
   api :POST, '/text/expand_pointer', 'Expands a pointer. For example, if the topmost text is "what is the sum of #1?" and `number` is 1, then this will be expanded to "what is the sum of [pointer information]?"'
