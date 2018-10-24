@@ -35,7 +35,7 @@ class QuestionsController < ApplicationController
   end
 
   api :GET, '/questions/:id', 'Show an existing question'
-  param :id, :number
+  param :id, :number, :required => true
   def show
     @question = Question.find(params[:id])
     respond_to do |format|
@@ -55,7 +55,7 @@ class QuestionsController < ApplicationController
   end
 
   api :PATCH, '/questions/:id', 'Update a question. If a parameter is left nil or if its value is unchanged, no modifications will be made'
-  param :id, :number
+  param :id, :number, :required => true
   param 'question', String, :desc => "Question text, possibly including pointers in square brackets", :required => false
   param 'answer', String, :desc => "Answer text, possibly including pointers in square brackets", :required => false
   param 'parent_id', :number, :desc => "Parent question ID", :required => false
@@ -68,7 +68,7 @@ class QuestionsController < ApplicationController
   end
 
   api :DELETE, '/questions/:id', 'Deletes question. Note that the delete cascades and also removes any child questions.'
-  param :id, :number
+  param :id, :number, :required => true
   def destroy
     @question = Question.find(params[:id])
     @question.destroy_cascade
