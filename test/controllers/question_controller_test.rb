@@ -29,4 +29,13 @@ class QuestionControllerTest < ActionDispatch::IntegrationTest
       assert_equal '2', question.answer.display
     end
   end
+
+  test 'destroy' do
+    question = Question.new(question: Text.build_text('what is [1]'),
+                            answer: Text.build_text('2'))
+    question.save!
+    assert_difference(-> {Question.count}, -1) do
+      delete "/questions/#{question.id}"
+    end
+  end
 end

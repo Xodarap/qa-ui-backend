@@ -40,7 +40,7 @@ class QuestionsController < ApplicationController
     end
   end
 
-  api :PATCH, '/questions/:id', 'Set the answer for a question. Note that the answer is the only thing which can be modified by this method'
+  api :PATCH, '/questions/:id', 'Update a question. If a parameter is left false or if its value is unchanged, no modifications will be made'
   param :id, :number
   param 'question', String, :desc => "Question text, possibly including pointers in square brackets", :required => false
   param 'answer', String, :desc => "Answer text, possibly including pointers in square brackets", :required => false
@@ -51,6 +51,14 @@ class QuestionsController < ApplicationController
     @question.parent_id = safe_parameters[:parent_id] if safe_parameters.key?(:parent_id)
     @question.save!
     render json: @question.as_json
+  end
+
+  api :DELETE, '/questions/:id'
+  param :id, :number
+  def destroy
+    @question = Question.find(params[:id])
+    @question.destroy
+    head :ok
   end
 
   private
