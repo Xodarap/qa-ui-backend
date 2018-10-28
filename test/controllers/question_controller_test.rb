@@ -24,6 +24,7 @@ class QuestionControllerTest < ActionDispatch::IntegrationTest
 
     get "/questions/#{question.id}"
     assert_equal 'meaning of life', JSON.parse(response.body)['question']['display_expanded']
+    assert_equal '*', response.headers['Access-Control-Allow-Origin']
   end
 
   test 'idempotent' do

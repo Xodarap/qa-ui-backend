@@ -4,6 +4,15 @@ class QuestionsController < ApplicationController
     api_version "1.0"
   end
 
+  after_action do
+    response.headers.merge!({
+          'Access-Control-Allow-Headers': 'authorization,content-type,x-goog-authuser',
+          'Access-Control-Allow-Origin': '*',
+          'Allow': 'POST, GET, OPTIONS, PUT, DELETE',
+          'Access-Control-Allow-Methods': 'POST, GET, OPTIONS, PUT, DELETE'
+        }.with_indifferent_access)
+  end
+
   skip_before_action :verify_authenticity_token
 
   def new
