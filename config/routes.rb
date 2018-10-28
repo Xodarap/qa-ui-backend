@@ -4,7 +4,7 @@ Rails.application.routes.draw do
   root 'welcome#index'
 
   post 'texts/expand_pointer'
+  match '/questions' => "questions#options", via: :options
   resources :questions
   resources :texts, only:[:show]
-  match '/questions', :controller => 'questions', :action => 'options', :constraints => {:method => 'OPTIONS'}
 end

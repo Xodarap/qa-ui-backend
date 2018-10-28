@@ -75,6 +75,17 @@ class QuestionsController < ApplicationController
     head :ok
   end
 
+  api :OPTIONS, '/questions'
+  def options
+    response.headers.merge!({
+          'Access-Control-Allow-Headers': 'authorization,content-type,x-goog-authuser',
+          'Access-Control-Allow-Origin': '*',
+          'Allow': 'POST, GET, OPTIONS, PUT, DELETE',
+          'Access-Control-Allow-Methods': 'POST, GET, OPTIONS, PUT, DELETE'
+        }.with_indifferent_access)
+    head :ok
+  end
+
   private
   def safe_parameters
     params.permit(:question, :answer, :parent_id)
