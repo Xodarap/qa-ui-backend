@@ -28,30 +28,21 @@ class QuestionsController < ApplicationController
     @question = Question.new(parent_id: safe_parameters[:parent_id],
                               question: question_text, answer: answer_text)
     @question.save
-    respond_to do |format|
-      format.html { redirect_to @question }
-      format.js { render json: @question.as_json }
-    end    
+    render json: @question.as_json
   end
 
   api :GET, '/questions/:id', 'Show an existing question'
   param :id, :number, :required => true
   def show
     @question = Question.find(params[:id])
-    respond_to do |format|
-      format.html 
-      format.js { render json: @question.as_json }
-    end
+    render json: @question.as_json
   end
 
   api :GET, '/questions', 'Show all top-level questions'
   returns :code => 200, :desc => 'all top-level questions (i.e. all questions with no parent ID)'
   def index
     @top_level = Question.where(parent_id: nil).includes(:children)
-    respond_to do |format|
-      format.html 
-      format.js { render json: @top_level.map(&:as_json) }
-    end
+    render json: @top_level.map(&:as_json) 
   end
 
   api :PATCH, '/questions/:id', 'Update a question. If a parameter is left nil or if its value is unchanged, no modifications will be made'

@@ -1,4 +1,5 @@
 require 'test_helper'
+require 'json'
 
 class QuestionControllerTest < ActionDispatch::IntegrationTest
   test 'new' do
@@ -15,6 +16,14 @@ class QuestionControllerTest < ActionDispatch::IntegrationTest
     question.reload
     assert_equal 'what is [2]', question.question.display
     assert_equal '2', question.answer.display
+  end
+
+  test 'show' do
+    question = Question.new(question: Text.build_text('meaning of life'))
+    question.save!
+
+    get "/questions/#{question.id}"
+    assert_equal 'meaning of life', JSON.parse(response.body)['question']['display_expanded']
   end
 
   test 'idempotent' do
